@@ -2,5 +2,11 @@
 
 `Pry 0.001_000 cpan:TOBYINK`
 	issued  2014-08-30;
-	label   "Initial release".
+	label   "Preview release".
 
+`Pry 0.001_001 cpan:TOBYINK`
+	issued  2014-08-30;
+	changeset [
+		item "Prevent Pry from being re-invoked from within the REPL."^^Change;
+		item "Improved chatting."^^Change;
+	].
