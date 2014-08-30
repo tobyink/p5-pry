@@ -10,3 +10,8 @@
 		item "Prevent Pry from being re-invoked from within the REPL."^^Change;
 		item "Improved chatting."^^Change;
 	].
+
+`Pry 0.002000 cpan:TOBYINK`
+	issued  2014-08-30;
+	label   "First release";
+	comment "No functional changes".

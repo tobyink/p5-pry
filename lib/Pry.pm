@@ -5,7 +5,7 @@ use warnings;
 package Pry;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.001_001';
+our $VERSION   = '0.002000';
 
 use Exporter::Shiny our @EXPORT = qw(pry);
 
@@ -75,7 +75,7 @@ sub pry ()
 	$repl->$_say("Prying at $file line $line", "magenta");
 	$repl->$_say("Current package:   '$caller'");
 	$repl->$_say("Lexicals in scope: @{[ sort keys %$Lexicals ]}");
-	$repl->$_say("Ctrl+D to finish prying.", "magenta");	
+	$repl->$_say("Ctrl+D to finish prying.", "magenta");
 	$repl->run;
 	$repl->$_say("Finished prying!", "magenta");
 }
