@@ -28,7 +28,7 @@ my $_say = sub {
 	print Term::ANSIColor::colored($text, "bold $colour"), "\n";
 };
 
-our ($Lexicals, $Trace);
+our ($Lexicals, $Trace, $Already);
 
 # shim to pass lexicals to Reply
 #
@@ -44,11 +44,22 @@ our ($Lexicals, $Trace);
 #
 sub pry ()
 {
+	my ($caller, $file, $line) = caller;
+	
+	if ( $Already )
+	{
+		Reply->$_say(
+			"Pry is not re-entrant; not prying again at $file line $line",
+			"magenta",
+		);
+		return;
+	}
+	local $Already = 1;
+	
 	require Devel::StackTrace;
 	require Reply;
 	require PadWalker;
 	
-	my ($caller, $file, $line) = caller;
 	$Lexicals = PadWalker::peek_my(1);
 	$Trace = Devel::StackTrace->new(
 		ignore_package => __PACKAGE__,
@@ -64,9 +75,9 @@ sub pry ()
 	$repl->$_say("Prying at $file line $line", "magenta");
 	$repl->$_say("Current package:   '$caller'");
 	$repl->$_say("Lexicals in scope: @{[ sort keys %$Lexicals ]}");
-	$repl->$_say("Ctrl+D to leave REPL", "magenta");
-	
+	$repl->$_say("Ctrl+D to finish prying.", "magenta");	
 	$repl->run;
+	$repl->$_say("Finished prying!", "magenta");
 }
 
 # utils
@@ -79,6 +90,12 @@ sub Trace    () { $Trace    if $] }
 __END__
 
 =pod
+
+=begin trustme
+
+=item pry
+
+=end trustme
 
 =encoding utf-8
 
