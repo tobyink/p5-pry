@@ -1,0 +1,19 @@
+# This file contains general metadata about the project.
+
+@prefix : <http://usefulinc.com/ns/doap#>.
+
+`Pry`
+	:programming-language "Perl" ;
+	:shortdesc            "intrude on your code";
+	:homepage             <https://metacpan.org/release/Pry>;
+	:download-page        <https://metacpan.org/release/Pry>;
+	:bug-database         <http://rt.cpan.org/Dist/Display.html?Queue=Pry>;
+	:repository           [ a :GitRepository; :browse <https://github.com/tobyink/p5-pry> ];
+	:created              2014-08-30;
+	:license              <http://dev.perl.org/licenses/>;
+	:maintainer           cpan:TOBYINK;
+	:developer            cpan:TOBYINK.
+
+<http://dev.perl.org/licenses/>
+	dc:title  "the same terms as the perl 5 programming language system itself".
+

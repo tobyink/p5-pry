@@ -1,0 +1,14 @@
+# This file provides instructions for packaging.
+
+@prefix : <http://ontologi.es/doap-deps#>.
+
+`Pry`
+	:runtime-requirement    [ :on "perl 5.008001"^^:CpanId ];
+	:runtime-requirement    [ :on "Exporter::Shiny"^^:CpanId ];
+	:runtime-requirement    [ :on "Devel::StackTrace"^^:CpanId ];
+	:runtime-requirement    [ :on "PadWalker"^^:CpanId ];
+	:runtime-requirement    [ :on "Reply"^^:CpanId ];
+	:runtime-requirement    [ :on "Term::ANSIColor"^^:CpanId ];
+	:test-requirement       [ :on "Test::More 0.96"^^:CpanId ];
+	:develop-suggestion     [ :on "Dist::Inkt 0.001"^^:CpanId ];
+	.
