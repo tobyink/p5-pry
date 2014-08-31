@@ -77,7 +77,10 @@ sub pry (;@)
 	require Reply;
 	require PadWalker;
 	
-	$Lexicals = PadWalker::peek_my(1);
+	$Lexicals = +{
+		%{ PadWalker::peek_our(1) },
+		%{ PadWalker::peek_my(1) },
+	};
 	$Trace = Devel::StackTrace->new(
 		ignore_package => __PACKAGE__,
 		message        => "Prying",
@@ -159,7 +162,7 @@ Starts the Pry REPL.
 
 =item C<< pry(@varnames) >>
 
-Dumps selected lexical variables before starting the Pry REPL.
+Dumps selected variables before starting the Pry REPL.
 
 Note a list of variable I<names> is expected; not I<values>. For
 example:
