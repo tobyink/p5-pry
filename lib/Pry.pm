@@ -202,7 +202,7 @@ hashref).
 
 =back
 
-=head3 Package Variable
+=head2 Package Variable
 
 =over
 
