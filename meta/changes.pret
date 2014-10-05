@@ -15,3 +15,11 @@
 	issued  2014-08-30;
 	label   "First release";
 	comment "No functional changes".
+
+`Pry 0.003000 cpan:TOBYINK`
+	issued  2014-10-05;
+	changeset [
+		item "pry() now accepts a list of variable names as parameters."^^Change;
+		item "Include `our` variables as well as `my`."^^Change;
+		item "Provide Pry::Dump() and $Pry::Dumper."^^Change;
+	].
