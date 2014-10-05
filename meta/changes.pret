@@ -23,3 +23,9 @@
 		item "Include `our` variables as well as `my`."^^Change;
 		item "Provide Pry::Dump() and $Pry::Dumper."^^Change;
 	].
+
+`Pry 0.003001 cpan:TOBYINK`
+	issued  2014-10-05;
+	changeset [
+		item "Promote the 'Package Variable' heading to =head2."^^Documentation;
+	].

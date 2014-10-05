@@ -5,7 +5,7 @@ use warnings;
 package Pry;
 
 our $AUTHORITY = 'cpan:TOBYINK';
-our $VERSION   = '0.003000';
+our $VERSION   = '0.003001';
 
 use Exporter::Shiny our @EXPORT = qw(pry);
 
