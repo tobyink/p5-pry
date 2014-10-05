@@ -30,16 +30,21 @@ my $_say = sub {
 	print Term::ANSIColor::colored($text, "bold $colour"), "\n";
 };
 
+our $Dumper = 'Data::Dumper';
+
 my $_display_vars = sub {
 	my $invocant = shift;
-	require Data::Dumper;
+	my $_dumper  = $Dumper eq 'Data::Dump'
+		? do { require Data::Dump;   \&Data::Dump::dump }
+		: do { require Data::Dumper; \&Data::Dumper::Dumper };
+	
 	local $Data::Dumper::Deparse = 1;
 	local $Data::Dumper::Terse   = 1;
 	
 	for my $var (@_)
 	{
 		my $val  = ($var =~ /\A\$/) ? ${$Lexicals->{$var}} : $Lexicals->{$var};
-		my $dump = Data::Dumper::Dumper($val);
+		my $dump = $_dumper->($val);
 		chomp($dump);
 		$dump =~ s/(\A\[)/\(/ and $dump =~ s/(\]\z)/\)/ if $var =~ /\A\@/;
 		$dump =~ s/(\A\{)/\(/ and $dump =~ s/(\}\z)/\)/ if $var =~ /\A\%/;
@@ -106,8 +111,9 @@ sub pry (;@)
 
 # utils
 #
-sub Lexicals () { $Lexicals if $] }
-sub Trace    () { $Trace    if $] }
+sub Lexicals ()  { $Lexicals if $] }
+sub Trace    ()  { $Trace    if $] }
+sub Dump     (@) { __PACKAGE__->$_display_vars(@_) }
 
 1;
 
@@ -188,6 +194,22 @@ Returns a hashref of your lexical variables.
 =item C<< Pry::Trace >>
 
 Returns the stack trace as a L<Devel::StackTrace> object.
+
+=item C<< Pry::Dump(@variable_names) >>
+
+Dumps variables (which must exist somewhere in the C<< Pry::Lexicals >>
+hashref).
+
+=back
+
+=head3 Package Variable
+
+=over
+
+=item C<< $Pry::Dumper >>
+
+Decides the backend dumper implementation used by C<< Pry::Dump() >>.
+Valid values are "Data::Dump" and "Data::Dumper".
 
 =back
 
