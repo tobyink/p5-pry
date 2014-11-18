@@ -45,7 +45,10 @@ our ($Lexicals, $Trace);
 sub pry ()
 {
 	require Devel::StackTrace;
+	require File::HomeDir;
+	require File::Spec;
 	require Reply;
+	require Reply::App;
 	require PadWalker;
 	
 	my ($caller, $file, $line) = caller;
@@ -55,8 +58,12 @@ sub pry ()
 		message        => "Prying",
 	);
 	
+	my $path = File::Spec->catfile(File::HomeDir->my_home, '.replyrc');
+	unless (-e $path) {
+		Reply::App->generate_default_config($path);
+	}
 	my $repl = Reply->new(
-		config  => ".replyrc",
+		config  => $path,
 		plugins => [ "/Pry/_Lexicals" ],
 	);
 	$repl->step("package $caller");
